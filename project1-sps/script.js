@@ -14,6 +14,13 @@ var mostRecentWinner = "No one";
 // =================
 
 var setName = function (input) {
+  var output = "";
+
+  if (input == "") {
+    output = "Input your name to start the game.";
+    return output;
+  }
+
   //set the name
   userName = input;
 
@@ -21,7 +28,12 @@ var setName = function (input) {
   waitingForName = false;
   waitingForVersion = true;
 
-  var output = `Hello, ${userName}! Please enter reverse or regular or muk-jji-ppa or computer.`;
+  output = `Hello, ${userName}! Please enter regular or reverse or muk-jji-ppa or computer to set the game version.<br><br>
+  ===================<br><br>
+  Regular: Just regular rock paper scissors. <br><br>
+  Reverse: The rules are reversed: scissors beat stone, stone beats paper, and paper beats scissors. <br><br>
+  Muk-jji-ppa: Korean version of rock paper scissors, where after showing their hands, the player with the winning throw shouts "muk-jji-ppa!" upon which both players throw again... and again... until both players throw the same item, at which point whoever was the last winner becomes the actual winner. <br><br>
+  Computer: The computer will play for you, against itself. `;
 
   return output;
 };
@@ -41,7 +53,7 @@ var setVersion = function (input) {
   ) {
     // If input is not valid, instruct player to enter a valid input.
 
-    output = "Please enter reverse or regular or muk-jji-ppa or computer.";
+    output = "Please enter regular or reverse or muk-jji-ppa or computer.";
     return output;
   }
 
@@ -88,7 +100,7 @@ var setVersion = function (input) {
 // =================
 
 var generateRandomHand = function () {
-  // produces a float between 0 and 3
+  // produces an integer between 0 and 3
   var randomInteger = Math.floor(Math.random() * 3);
 
   console.log(`random integer: ${randomInteger}`);
@@ -248,7 +260,7 @@ var main = function (input) {
     return myOutputValue;
   }
 
-  //now that we're ready to start playing, set define game variables
+  //now that we're ready to start playing, define game variables
   if (gameVersion != "computer") {
     var userHand = input;
   }
@@ -285,10 +297,19 @@ var main = function (input) {
   console.log(userWinCount, timesPlayed, winPercentage);
   console.log(`===============`);
 
+  //set message about what to do next
+  var nextMessage = "Enter rock, scissors, or paper to play again. ";
+  if (gameVersion == "computer") {
+    nextMessage = "Press the Submit button again to play again.";
+  }
+
   // output the result
   var myOutputValue = `${userName}: ${userHand} <br>
   Computer: ${compHand} <br><br>
   ${result} <br><br> 
+  ${nextMessage} <br>
+  Refresh the page to try a different game version.<br><br>
+  =======================<br><br>
   Times played: ${timesPlayed} <br>
   Wins: ${userWinCount} <br>
   Losses: ${compWinCount} <br>
