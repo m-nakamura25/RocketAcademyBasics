@@ -21,51 +21,66 @@ var setName = function (input) {
   waitingForName = false;
   waitingForVersion = true;
 
-  var output = `Hello, ${userName}! Please enter reverse or regular or muk-jji-ppa.`;
+  var output = `Hello, ${userName}! Please enter reverse or regular or muk-jji-ppa or computer.`;
 
   return output;
 };
 
 // =================
 
+//set game version
 var setVersion = function (input) {
-  //set reverse version or regular version
-
   var output;
 
-  if (input == "regular" || input == "regular ") {
-    // then game version remains defaul value of "regular"
+  //validate input
+  if (
+    input != "regular" &&
+    input != "reverse" &&
+    input != "muk-jji-ppa" &&
+    input != "computer"
+  ) {
+    // If input is not valid, instruct player to enter a valid input.
 
-    //now that we have game version, switch mode
-    waitingForVersion = false;
+    output = "Please enter reverse or regular or muk-jji-ppa or computer.";
+    return output;
+  }
+
+  //now that we have game version, switch mode
+  waitingForVersion = false;
+
+  if (input == "regular") {
+    // then game version remains defaul value of "regular"
 
     output =
       "You are now in regular game mode! Please enter rock, scissors, or paper.";
 
     return output;
-  } else if (input == "reverse" || input == "reverse ") {
+  } else if (input == "reverse") {
     //then game version becomes "reverse"
 
     gameVersion = "reverse";
 
-    //now that we have game version, switch mode
-    waitingForVersion = false;
-
     output =
       "You are now in reverse game mode! Please enter rock, scissors, or paper.";
     return output;
-  } else if (input == "muk-jji-ppa" || input == "muk-jji-ppa ") {
+  } else if (input == "muk-jji-ppa") {
     //then game version becomes "muk-jji-ppa"
 
     gameVersion = "muk-jji-ppa";
 
     console.log(gameVersion);
 
-    //now that we have game version, switch mode
-    waitingForVersion = false;
-
     output =
       "You are now in muk-jji-ppa game mode! Please enter rock, scissors, or paper.";
+    return output;
+  } else if (input == "computer") {
+    //then game version becomes "computer"
+
+    gameVersion = "computer";
+
+    output =
+      "You are now in computer vs. computer game mode! Please press the Submit button.";
+
     return output;
   }
 };
@@ -221,7 +236,12 @@ var main = function (input) {
   }
 
   //validate input before going on
-  if (input != "rock" && input != "scissors" && input != "paper") {
+  if (
+    input != "rock" &&
+    input != "scissors" &&
+    input != "paper" &&
+    gameVersion != "computer"
+  ) {
     // If input is not valid, instruct player to enter a valid input.
 
     myOutputValue = "Please enter rock, scissors, or paper. ";
@@ -229,18 +249,23 @@ var main = function (input) {
   }
 
   //now that we're ready to start playing, set define game variables
-  var userHand = input;
+  if (gameVersion != "computer") {
+    var userHand = input;
+  }
   var compHand;
   var result;
 
   // generate a random computer hand
   var compHand = generateRandomHand();
+  if (gameVersion == "computer") {
+    userHand = generateRandomHand();
+  }
 
   console.log(`compHand = ${compHand}`);
   console.log(`userHand: ${userHand}`);
 
   // determine result
-  if (gameVersion == "regular") {
+  if (gameVersion == "regular" || gameVersion == "computer") {
     result = determineResultRegular(compHand, userHand);
   } else if (gameVersion == "reverse") {
     result = determineResultReverse(compHand, userHand);
