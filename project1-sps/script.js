@@ -12,6 +12,52 @@ var gameVersion = "regular";
 
 // =================
 
+var setName = function (input) {
+  //set the name
+  userName = input;
+
+  //now that we have the name, switch mode
+  waitingForName = false;
+  waitingForVersion = true;
+
+  var output = `Hello, ${userName}! Please enter reverse or regular.`;
+
+  return output;
+};
+
+// =================
+
+var setVersion = function (input) {
+  //set reverse version or regular version
+
+  var output;
+
+  if (input == "regular" || input == "regular ") {
+    // then game version remains defaul value of "regular"
+
+    //now that we have game version, switch mode
+    waitingForVersion = false;
+
+    output =
+      "You are now in regular game mode! Please enter rock, scissors, or paper.";
+
+    return output;
+  } else if (input == "reverse" || input == "reverse ") {
+    //then game version becomes "reverse"
+
+    gameVersion = "reverse";
+
+    //now that we have game version, switch mode
+    waitingForVersion = false;
+
+    output =
+      "You are now in reverse game mode! Please enter rock, scissors, or paper.";
+    return output;
+  }
+};
+
+// =================
+
 var generateRandomHand = function () {
   // produces a float between 0 and 3
   var randomInteger = Math.floor(Math.random() * 3);
@@ -90,43 +136,32 @@ var determineResultReverse = function (compHand, userHand) {
 // =================
 
 var main = function (input) {
+  var myOutputValue = "";
+
+  //before starting game, set name and set game version.
   if (waitingForName == true) {
-    //set the name
-    userName = input;
+    //run setName function
 
-    //now that we have the name, switch mode
-    waitingForName = false;
-    waitingForVersion = true;
+    myOutputValue = setName(input);
 
-    result = `Hello, ${userName}! Please enter reverse or regular.`;
-
-    return result;
+    return myOutputValue;
   } else if (waitingForVersion == true) {
-    //set reverse mode or regular mode
+    //run setVersion function
 
-    if (input == "regular" || input == "regular ") {
-      waitingForVersion = false;
+    myOutputValue = setVersion(input);
 
-      result =
-        "You are now in regular game mode! Please enter rock, scissors, or paper.";
-
-      return result;
-    } else if (input == "reverse" || input == "reverse ") {
-      gameVersion = "reverse";
-      waitingForVersion = false;
-
-      result =
-        "You are now in reverse game mode! Please enter rock, scissors, or paper.";
-      return result;
-    }
-  } else if (input != "rock" && input != "scissors" && input != "paper") {
-    // validate input
-
-    result = "Please enter rock, scissors, or paper. ";
-    return result;
+    return myOutputValue;
   }
 
-  //define variables
+  //validate input before going on
+  if (input != "rock" && input != "scissors" && input != "paper") {
+    // If input is not valid, instruct player to enter a valid input.
+
+    myOutputValue = "Please enter rock, scissors, or paper. ";
+    return myOutputValue;
+  }
+
+  //now that we're ready to start playing, set define game variables
   var userHand = input;
   var compHand;
   var result;
