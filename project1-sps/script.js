@@ -12,19 +12,31 @@ var gameVersion = "regular";
 
 // =================
 
-var generateRandomNum = function () {
+var generateRandomHand = function () {
   // produces a float between 0 and 3
-  var randomFloat = Math.random() * 3;
+  var randomInteger = Math.floor(Math.random() * 3);
 
-  console.log(`random float: ${randomFloat}`);
+  console.log(`random integer: ${randomInteger}`);
 
-  // take off the decimal
-  var resultInteger = Math.floor(randomFloat);
-  resultInteger++;
+  var compHand = "";
 
-  console.log(`result integer: ${resultInteger}`);
+  // assign each number to a hand
+  switch (randomInteger) {
+    case 0:
+      compHand = "rock";
+      break;
+    case 1:
+      compHand = "scissors";
+      break;
+    case 2:
+      compHand = "paper";
+      break;
 
-  return resultInteger;
+    default:
+      break;
+  }
+
+  return compHand;
 };
 
 // =================
@@ -87,14 +99,17 @@ var main = function (input) {
     waitingForVersion = true;
 
     result = `Hello, ${userName}! Please enter reverse or regular.`;
+
     return result;
   } else if (waitingForVersion == true) {
     //set reverse mode or regular mode
+
     if (input == "regular" || input == "regular ") {
       waitingForVersion = false;
 
       result =
         "You are now in regular game mode! Please enter rock, scissors, or paper.";
+
       return result;
     } else if (input == "reverse" || input == "reverse ") {
       gameVersion = "reverse";
@@ -119,24 +134,8 @@ var main = function (input) {
   // increase the timesPlayed count.
   timesPlayed += 1;
 
-  // generate a random number (0-2)
-  var compRandomNum = generateRandomNum();
-
-  // assign each number to a hand
-  switch (compRandomNum) {
-    case 1:
-      compHand = "rock";
-      break;
-    case 2:
-      compHand = "scissors";
-      break;
-    case 3:
-      compHand = "paper";
-      break;
-
-    default:
-      break;
-  }
+  // generate a random computer hand
+  var compHand = generateRandomHand();
 
   console.log(`compHand = ${compHand}`);
   console.log(`userHand: ${userHand}`);
