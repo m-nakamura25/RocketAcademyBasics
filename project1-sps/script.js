@@ -2,13 +2,14 @@
 
 var userWinCount = 0;
 var compWinCount = 0;
-var tieCount = 0;
+var drawCount = 0;
 var timesPlayed = 0;
 var winPercentage = 0;
 var userName = "";
 var waitingForName = true;
 var waitingForVersion = false;
 var gameVersion = "regular";
+var mostRecentWinner = "No one";
 
 // =================
 
@@ -20,7 +21,7 @@ var setName = function (input) {
   waitingForName = false;
   waitingForVersion = true;
 
-  var output = `Hello, ${userName}! Please enter reverse or regular.`;
+  var output = `Hello, ${userName}! Please enter reverse or regular or muk-jji-ppa.`;
 
   return output;
 };
@@ -52,6 +53,19 @@ var setVersion = function (input) {
 
     output =
       "You are now in reverse game mode! Please enter rock, scissors, or paper.";
+    return output;
+  } else if (input == "muk-jji-ppa" || input == "muk-jji-ppa ") {
+    //then game version becomes "muk-jji-ppa"
+
+    gameVersion = "muk-jji-ppa";
+
+    console.log(gameVersion);
+
+    //now that we have game version, switch mode
+    waitingForVersion = false;
+
+    output =
+      "You are now in muk-jji-ppa game mode! Please enter rock, scissors, or paper.";
     return output;
   }
 };
@@ -93,7 +107,7 @@ var determineResultRegular = function (compHand, userHand) {
 
   if (compHand == userHand) {
     result = "It's a draw!";
-    tieCount += 1;
+    drawCount += 1;
   } else if (
     (compHand == "rock" && userHand == "scissors") ||
     (compHand == "scissors" && userHand == "paper") ||
@@ -106,6 +120,9 @@ var determineResultRegular = function (compHand, userHand) {
     userWinCount += 1;
   }
 
+  // increase the timesPlayed count.
+  timesPlayed += 1;
+
   return result;
 };
 
@@ -117,7 +134,7 @@ var determineResultReverse = function (compHand, userHand) {
 
   if (compHand == userHand) {
     result = "It's a draw!";
-    tieCount += 1;
+    drawCount += 1;
   } else if (
     (userHand == "rock" && compHand == "scissors") ||
     (userHand == "scissors" && compHand == "paper") ||
@@ -130,6 +147,54 @@ var determineResultReverse = function (compHand, userHand) {
     userWinCount += 1;
   }
 
+  // increase the timesPlayed count.
+  timesPlayed += 1;
+
+  return result;
+};
+
+// =================
+
+//muk-ji-ppa  version
+
+//when draw, the most recent winner becomes the final winner
+//if not draw, no one actually wins, they just become most recent winner
+
+var determineResultKorean = function (compHand, userHand) {
+  var result;
+  console.log("determining muk-jji-ppa result");
+
+  if (compHand == userHand) {
+    result = `${mostRecentWinner} ultimately wins!`;
+
+    if (mostRecentWinner == "Computer") {
+      compWinCount += 1;
+    } else if (mostRecentWinner == userName) {
+      userWinCount += 1;
+    } else if (mostRecentWinner == "No one") {
+      drawCount += 1;
+    }
+
+    // increase the timesPlayed count.
+    timesPlayed += 1;
+
+    //Reset mostRecentWinner variable
+    mostRecentWinner = "No one";
+  } else if (
+    (userHand == "rock" && compHand == "scissors") ||
+    (userHand == "scissors" && compHand == "paper") ||
+    (userHand == "paper" && compHand == "rock")
+  ) {
+    mostRecentWinner = userName;
+
+    result = "You won this round. Keep playing to get the final winner. ";
+  } else {
+    mostRecentWinner = "Computer";
+
+    result =
+      "The computer won this round. Keep playing to get the final winner. ";
+  }
+
   return result;
 };
 
@@ -138,7 +203,7 @@ var determineResultReverse = function (compHand, userHand) {
 var main = function (input) {
   var myOutputValue = "";
 
-  //before starting game, set name and set game version.
+  //before starting game, set name and game version.
   if (waitingForName == true) {
     //run setName function
 
@@ -147,6 +212,8 @@ var main = function (input) {
     return myOutputValue;
   } else if (waitingForVersion == true) {
     //run setVersion function
+
+    console.log("running setversion function ");
 
     myOutputValue = setVersion(input);
 
@@ -166,9 +233,6 @@ var main = function (input) {
   var compHand;
   var result;
 
-  // increase the timesPlayed count.
-  timesPlayed += 1;
-
   // generate a random computer hand
   var compHand = generateRandomHand();
 
@@ -180,6 +244,8 @@ var main = function (input) {
     result = determineResultRegular(compHand, userHand);
   } else if (gameVersion == "reverse") {
     result = determineResultReverse(compHand, userHand);
+  } else if (gameVersion == "muk-jji-ppa") {
+    result = determineResultKorean(compHand, userHand);
   }
 
   console.log(`result: ${result}`);
@@ -201,7 +267,7 @@ var main = function (input) {
   Times played: ${timesPlayed} <br>
   Wins: ${userWinCount} <br>
   Losses: ${compWinCount} <br>
-  Ties: ${tieCount}<br>
+  Draws: ${drawCount}<br>
   Your winning percentage: ${winPercentage}%`;
 
   return myOutputValue;
