@@ -65,14 +65,20 @@ The <html> element is known as the root element of a HTML page. All other elemen
     <div class="container">
       <p>Input your name to start the game.</p>
 
-      <!-- The <p> tag defines a paragraph element. -->
-      <p>Input:</p>
-      <!-- The self-closing <input /> tag represents a field for a user to enter input. -->
-      <input id="input-field" />
-      <!-- The self-closing <br /> tag represents a line break - a line's worth of spacing before dispalying the next element. -->
-      <br />
-      <!-- The <button> tag represents.. you guessed it! a button. -->
-      <button id="submit-button">Submit</button>
+      <form>
+        <!-- Inputタグやbuttonタグなどは、普通はformの中で使われる。 -->
+
+        <!-- The <p> tag defines a paragraph element. -->
+        <p>Input:</p>
+
+        <!-- The self-closing <input /> tag represents a field for a user to enter input. -->
+        <input id="input-field" />
+        <!-- The self-closing <br /> tag represents a line break - a line's worth of spacing before dispalying the next element. -->
+        <br />
+        <!-- The <button> tag represents.. you guessed it! a button. -->
+        <button id="submit-button">Submit</button>
+      </form>
+
       <p>Output:</p>
       <div class="output-div" id="output-div"></div>
     </div>
@@ -86,7 +92,14 @@ The <html> element is known as the root element of a HTML page. All other elemen
       var button = document.querySelector("#submit-button");
       // When the submit button is clicked, access the text entered by the user in the input field
       // And pass it as an input parameter to the main function as defined in script.js
-      button.addEventListener("click", function () {
+      button.addEventListener("click", function (e) {
+        //e means event
+        //Form はどこかに情報を送るためのもの
+        //default機能は、画面が切り替わること。
+        //なので、submitした瞬間、元の画面に戻っちゃう。
+        //それをpreventするために preventDefaultを入れる。
+        e.preventDefault();
+
         // Set result to input value
         var input = document.querySelector("#input-field");
         // Store the output of main() in a new variable

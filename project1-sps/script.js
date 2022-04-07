@@ -28,7 +28,8 @@ var setName = function (input) {
   waitingForName = false;
   waitingForVersion = true;
 
-  output = `Hello, ${userName}! Please enter regular or reverse or muk-jji-ppa or computer to set the game version.<br><br>
+  output = `Hello, ${userName}! <br>
+  Please enter "regular" or "reverse" or "muk-jji-ppa" or "computer" to set the game version.<br><br>
   ===================<br><br>
   Regular: Just regular rock paper scissors. <br><br>
   Reverse: The rules are reversed: scissors beat stone, stone beats paper, and paper beats scissors. <br><br>
@@ -53,7 +54,7 @@ var setVersion = function (input) {
   ) {
     // If input is not valid, instruct player to enter a valid input.
 
-    output = "Please enter regular or reverse or muk-jji-ppa or computer.";
+    output = `Please enter "regular" or "reverse" or "muk-jji-ppa" or "computer".`;
     return output;
   }
 
@@ -63,8 +64,7 @@ var setVersion = function (input) {
   if (input == "regular") {
     // then game version remains defaul value of "regular"
 
-    output =
-      "You are now in regular game mode! Please enter rock, scissors, or paper.";
+    output = `You are now in regular game mode! Please enter "rock", "scissors", or "paper".`;
 
     return output;
   } else if (input == "reverse") {
@@ -72,8 +72,7 @@ var setVersion = function (input) {
 
     gameVersion = "reverse";
 
-    output =
-      "You are now in reverse game mode! Please enter rock, scissors, or paper.";
+    output = `You are now in reverse game mode! Please enter "rock", "scissors", or "paper".`;
     return output;
   } else if (input == "muk-jji-ppa") {
     //then game version becomes "muk-jji-ppa"
@@ -82,8 +81,7 @@ var setVersion = function (input) {
 
     console.log(gameVersion);
 
-    output =
-      "You are now in muk-jji-ppa game mode! Please enter rock, scissors, or paper.";
+    output = `You are now in muk-jji-ppa game mode! Please enter "rock", "scissors", or "paper".`;
     return output;
   } else if (input == "computer") {
     //then game version becomes "computer"
@@ -256,7 +254,7 @@ var main = function (input) {
   ) {
     // If input is not valid, instruct player to enter a valid input.
 
-    myOutputValue = "Please enter rock, scissors, or paper. ";
+    myOutputValue = `Please enter "rock", "scissors", or "paper". `;
     return myOutputValue;
   }
 
@@ -298,7 +296,7 @@ var main = function (input) {
   console.log(`===============`);
 
   //set message about what to do next
-  var nextMessage = "Enter rock, scissors, or paper to play again. ";
+  var nextMessage = `Enter "rock", "scissors", or "paper" to play again. `;
   if (gameVersion == "computer") {
     nextMessage = "Press the Submit button again to play again.";
   }

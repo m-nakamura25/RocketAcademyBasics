@@ -57,7 +57,7 @@ nav ul li a {
 }
 
 .container {
-  background-color: #ffffff;
+  background-color: #ffe8e5;
   margin: 40px auto;
   max-width: 800px;
   padding: 38px 31px;
@@ -81,7 +81,8 @@ button {
 }
 
 .output-div {
-  background-color: lightgrey;
+  background-color: #b86b77;
+  color: #ffe8e5;
   margin: 20px auto;
   padding: 20px;
   width: 100%;
