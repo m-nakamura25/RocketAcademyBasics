@@ -17,7 +17,7 @@ var setName = function (input) {
   var output = "";
 
   if (input == "") {
-    output = "Input your name to start the game.";
+    output = `Input your name and click "Submit" to start the game.`;
     return output;
   }
 

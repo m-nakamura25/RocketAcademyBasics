@@ -63,10 +63,10 @@ The <html> element is known as the root element of a HTML page. All other elemen
     <h1 id="header">🚀 Basics Project 1: Scissors Paper Stone 🚀</h1>
     <!-- The <div> tag defines a division or a section in an HTML document, and is commonly use as a "container" for nested HTML elements. -->
     <div class="container">
-      <p>Input your name to start the game.</p>
+      <p>Input your name and click "Submit" to start the game.</p>
 
       <form>
-        <!-- Inputタグやbuttonタグなどは、普通はformの中で使われる。 -->
+        <!-- Apparently, input tags and button tags are usually used within forms. -->
 
         <!-- The <p> tag defines a paragraph element. -->
         <p>Input:</p>
@@ -94,10 +94,10 @@ The <html> element is known as the root element of a HTML page. All other elemen
       // And pass it as an input parameter to the main function as defined in script.js
       button.addEventListener("click", function (e) {
         //e means event
-        //Form はどこかに情報を送るためのもの
-        //default機能は、画面が切り替わること。
-        //なので、submitした瞬間、元の画面に戻っちゃう。
-        //それをpreventするために preventDefaultを入れる。
+        //forms are used to send information somewhere
+        //Its default function is to switch screens.
+        //So when I press Submit, it goes back to the original screen.
+        //In order to prevent that, we put in preventDefault.
         e.preventDefault();
 
         // Set result to input value
