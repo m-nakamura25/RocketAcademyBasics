@@ -29,8 +29,8 @@ var setName = function (input) {
   waitingForVersion = true;
 
   output = `Hello, ${userName}! <br>
-  Please enter "regular" or "reverse" or "muk-jji-ppa" or "computer" to set the game version.<br><br>
-  ===================<br><br>
+  Please enter "regular" or "reverse" or "muk-jji-ppa" or "computer" to set the game version.
+  <hr />
   Regular: Just regular rock paper scissors. <br><br>
   Reverse: The rules are reversed: scissors beat stone, stone beats paper, and paper beats scissors. <br><br>
   Muk-jji-ppa: Korean version of rock paper scissors, where after showing their hands, the player with the winning throw shouts "muk-jji-ppa!" upon which both players throw again... and again... until both players throw the same item, at which point whoever was the last winner becomes the actual winner. <br><br>
@@ -306,8 +306,8 @@ var main = function (input) {
   Computer: ${compHand} <br><br>
   ${result} <br><br> 
   ${nextMessage} <br>
-  Refresh the page to try a different game version.<br><br>
-  =======================<br><br>
+  Refresh the page to try a different game version.
+  <hr />
   Times played: ${timesPlayed} <br>
   Wins: ${userWinCount} <br>
   Losses: ${compWinCount} <br>
